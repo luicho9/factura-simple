@@ -14,7 +14,7 @@ import { InvoiceForm } from "@/components/create/invoice-form";
 
 export default function Page() {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2">
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
       <InvoiceForm>
         <Accordion type="single" collapsible defaultValue="company">
           <AccordionItem value="company">
