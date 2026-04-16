@@ -62,6 +62,7 @@ export const invoiceSchema = z.object({
       }),
     ),
   }),
+  presetFields: z.any().optional(),
 });
 
 export type InvoiceSchema = z.infer<typeof invoiceSchema>;
@@ -92,4 +93,5 @@ export const invoiceSchemaDefaultValues: InvoiceSchema = {
     terms: "",
     paymentInformation: [],
   },
+  presetFields: {},
 };

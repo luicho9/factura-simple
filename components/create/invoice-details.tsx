@@ -2,6 +2,7 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import type { InvoiceSchema } from "@/lib/schemas/invoice";
+import { parseLocalDate, toDateInputValue } from "@/lib/utils";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 
@@ -62,15 +63,9 @@ export function InvoiceDetails() {
           render={({ field }) => (
             <Input
               type="date"
-              value={
-                field.value instanceof Date
-                  ? field.value.toISOString().split("T")[0]
-                  : ""
-              }
+              value={toDateInputValue(field.value)}
               onChange={(e) =>
-                field.onChange(
-                  e.target.value ? new Date(e.target.value) : undefined,
-                )
+                field.onChange(parseLocalDate(e.target.value) ?? undefined)
               }
             />
           )}
@@ -86,16 +81,8 @@ export function InvoiceDetails() {
           render={({ field }) => (
             <Input
               type="date"
-              value={
-                field.value instanceof Date
-                  ? field.value.toISOString().split("T")[0]
-                  : ""
-              }
-              onChange={(e) =>
-                field.onChange(
-                  e.target.value ? new Date(e.target.value) : null,
-                )
-              }
+              value={toDateInputValue(field.value)}
+              onChange={(e) => field.onChange(parseLocalDate(e.target.value))}
             />
           )}
         />

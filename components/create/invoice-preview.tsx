@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import type { InvoiceSchema } from "@/lib/schemas/invoice";
+import type { PresetPreviewSlots } from "@/lib/schemas/presets/types";
 
 const A4_WIDTH_PX = 794;
 const A4_HEIGHT_PX = 1123;
@@ -34,7 +35,11 @@ const formatDate = (date: Date | null | undefined) => {
   }).format(d);
 };
 
-export function InvoicePreview() {
+interface InvoicePreviewProps {
+  preview?: PresetPreviewSlots;
+}
+
+export function InvoicePreview({ preview }: InvoicePreviewProps) {
   const { watch } = useFormContext<InvoiceSchema>();
   const { company, client, invoice, items, additionalInfo } = watch();
   const themeColor = invoice.themeColor;
@@ -131,6 +136,8 @@ export function InvoicePreview() {
                   <dd>{invoice.paymentTerms}</dd>
                 </>
               )}
+
+              {preview?.header && <preview.header />}
             </dl>
 
             <section className="mt-6 grid grid-cols-2 gap-6">
@@ -149,6 +156,7 @@ export function InvoicePreview() {
                     ))}
                   </ul>
                 )}
+                {preview?.company && <preview.company />}
               </div>
 
               <div>
@@ -167,6 +175,7 @@ export function InvoicePreview() {
                     ))}
                   </ul>
                 )}
+                {preview?.client && <preview.client />}
               </div>
             </section>
 

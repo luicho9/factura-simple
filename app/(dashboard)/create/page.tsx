@@ -26,11 +26,16 @@ import {
 export default function Page() {
   const [presetKey, setPresetKey] = useState<PresetKey>("default");
 
-  const defaults = presets[presetKey].invoiceDefaults;
+  const preset = presets[presetKey];
+  const defaults = preset.invoiceDefaults;
 
   return (
     <section className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-      <InvoiceForm key={presetKey} defaults={defaults}>
+      <InvoiceForm
+        key={presetKey}
+        defaults={defaults}
+        fieldsSchema={preset.fieldsSchema}
+      >
         <div className="flex flex-col">
           <div className="flex items-center justify-between rounded-t-2xl border px-4 py-2">
             <span className="text-sm font-medium">Plantilla</span>
@@ -80,6 +85,17 @@ export default function Page() {
               </AccordionContent>
             </AccordionItem>
 
+            {preset.FormFields && (
+              <AccordionItem value="preset-fields">
+                <AccordionTrigger>
+                  Datos fiscales ({preset.label})
+                </AccordionTrigger>
+                <AccordionContent>
+                  <preset.FormFields />
+                </AccordionContent>
+              </AccordionItem>
+            )}
+
             <AccordionItem value="items">
               <AccordionTrigger>Detalle</AccordionTrigger>
               <AccordionContent>
@@ -96,7 +112,7 @@ export default function Page() {
           </Accordion>
         </div>
 
-        <InvoicePreview />
+        <InvoicePreview preview={preset.preview} />
       </InvoiceForm>
     </section>
   );

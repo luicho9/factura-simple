@@ -1,10 +1,10 @@
 import { invoiceSchemaDefaultValues } from "../invoice";
 import { hn } from "./hn";
+import type { Preset } from "./types";
 
-export const presets = {
+export const presets: Record<string, Preset> = {
   default: {
     label: "Predeterminado",
-    fieldsSchema: null,
     invoiceDefaults: invoiceSchemaDefaultValues,
   },
   HN: hn,
