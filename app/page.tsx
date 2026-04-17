@@ -1,65 +1,66 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { LandingDemo } from "@/components/landing/landing-demo";
+
+const REPO_URL = "https://github.com/luicho9/factura-simple";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      <header className="flex items-center justify-between px-6 py-5">
+        <Link href="/" className="text-sm font-semibold tracking-tight">
+          Factura Simple
+        </Link>
+        <Link
+          href={REPO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-muted-foreground hover:text-foreground"
+        >
+          GitHub
+        </Link>
+      </header>
+
+      <main className="flex flex-1 flex-col items-center px-4 pt-12 pb-16 sm:px-6 sm:pt-24">
+        <section className="flex flex-col items-center text-center">
+          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            La forma más simple de facturar.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-5 max-w-lg text-base text-muted-foreground text-balance sm:text-lg">
+            Completa los datos, descarga el PDF. Sin cuentas, sin
+            complicaciones.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <Button asChild size="lg" className="mt-8">
+            <Link href="/create">Crear factura</Link>
+          </Button>
+        </section>
+
+        <section className="mt-14 w-full sm:mt-24">
+          <LandingDemo />
+        </section>
       </main>
-    </div>
+
+      <footer className="flex items-center justify-between px-6 py-6 text-xs text-muted-foreground">
+        <span>
+          Hecho por{" "}
+          <Link
+            href="https://joseluisflores.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-offset-4 hover:text-foreground hover:underline"
+          >
+            Jose Luis Flores
+          </Link>
+        </span>
+        <Link
+          href={REPO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-foreground"
+        >
+          GitHub
+        </Link>
+      </footer>
+    </>
   );
 }
