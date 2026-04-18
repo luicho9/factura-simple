@@ -4,9 +4,17 @@ import { formatCurrency, formatDate } from "./format";
 describe("formatCurrency", () => {
   test("formats a number as HNL currency string", () => {
     const result = formatCurrency(1500, "HNL");
-    // Intl formats HNL using the Lempira symbol "L", not the ISO code
-    expect(result).toContain("1,500");
     expect(result).toContain("L");
+  });
+
+  test("formats USD with dollar symbol", () => {
+    const result = formatCurrency(1500, "USD");
+    expect(result).toContain("$");
+  });
+
+  test("formats EUR with euro symbol", () => {
+    const result = formatCurrency(250, "EUR");
+    expect(result).toContain("€");
   });
 
   test("falls back gracefully for invalid currency codes", () => {

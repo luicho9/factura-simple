@@ -1,8 +1,12 @@
+// Americas currencies missing a narrowSymbol in Intl (fall back to ISO code):
+// PEN (Sol), VES (Bolívar), PAB (Balboa), HTG (Gourde),
+// AWG (Florín), ANG (Guilder), SVC (Colón salvadoreño)
 export function formatCurrency(value: number, currency: string) {
   try {
     return new Intl.NumberFormat("es-HN", {
       style: "currency",
       currency,
+      currencyDisplay: "narrowSymbol",
     }).format(value);
   } catch {
     return `${currency} ${value.toFixed(2)}`;

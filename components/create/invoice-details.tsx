@@ -2,9 +2,17 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import type { InvoiceSchema } from "@/lib/schemas/invoice";
+import { currencies } from "@/lib/currencies";
 import { DatePicker } from "../ui/date-picker";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export function InvoiceDetails() {
   const {
@@ -17,10 +25,23 @@ export function InvoiceDetails() {
     <FieldGroup>
       <Field>
         <FieldLabel>Moneda</FieldLabel>
-        <Input
-          {...register("invoice.currency")}
-          autoComplete="off"
-          placeholder="HNL"
+        <Controller
+          control={control}
+          name="invoice.currency"
+          render={({ field }) => (
+            <Select value={field.value} onValueChange={field.onChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecciona moneda" />
+              </SelectTrigger>
+              <SelectContent>
+                {currencies.map((c) => (
+                  <SelectItem key={c.code} value={c.code}>
+                    {c.code} - {c.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
         />
         <FieldError errors={[errors.invoice?.currency]} />
       </Field>

@@ -87,7 +87,7 @@ export const invoiceSchemaDefaultValues: InvoiceSchema = {
     metadata: [],
   },
   invoice: {
-    currency: "HNL",
+    currency: "USD",
     themeColor: "#00786f",
     serialNumber: "0001",
     invoiceDate: new Date(),
