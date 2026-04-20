@@ -7,8 +7,8 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 const pages = {
   "/create": "Crear factura",
   "/invoices": "Facturas",
-  "/settings": "Configuración",
   "/clients": "Clientes",
+  "/company": "Empresa",
 } as const;
 
 type PagePath = keyof typeof pages;
@@ -26,9 +26,9 @@ export function SiteHeader() {
           className="mx-2 data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-center"
         />
         <h1 className="text-base font-medium">{page}</h1>
-        {/* Portal target: pages mount page-specific actions (e.g. Download on */}
-        {/* /create) into this slot via createPortal. Keeps the header shared */}
-        {/* and avoids lifting per-page state up or prop-drilling through the layout. */}
+        {/* Portal target: pages mount their own contextual actions here via */}
+        {/* createPortal (e.g. Download on /create, New Client on /clients). */}
+        {/* This keeps the header shared without prop-drilling page state. */}
         <div
           id="site-header-actions"
           className="ml-auto flex items-center gap-2"

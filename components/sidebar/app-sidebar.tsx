@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavLogin } from "@/components/sidebar/nav-login";
@@ -16,27 +17,27 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   InvoiceIcon,
-  SettingsIcon,
   UserGroupIcon,
   ReceiptTextIcon,
+  BuildingIcon,
 } from "@hugeicons/core-free-icons";
 
 const data = {
   navMain: [
     {
       title: "Facturas",
-      url: "#",
+      url: "/invoices",
       icon: <HugeiconsIcon icon={InvoiceIcon} strokeWidth={2} />,
     },
     {
       title: "Clientes",
-      url: "#",
+      url: "/clients",
       icon: <HugeiconsIcon icon={UserGroupIcon} strokeWidth={2} />,
     },
     {
-      title: "Configuración",
-      url: "#",
-      icon: <HugeiconsIcon icon={SettingsIcon} strokeWidth={2} />,
+      title: "Empresa",
+      url: "/company",
+      icon: <HugeiconsIcon icon={BuildingIcon} strokeWidth={2} />,
     },
   ],
 };
@@ -47,13 +48,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="data-[slot=sidebar-menu-button]:p-1.5!">
-              <HugeiconsIcon
-                icon={ReceiptTextIcon}
-                strokeWidth={2}
-                className="size-5!"
-              />
-              <span className="text-base font-semibold">Factura Simple</span>
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:p-1.5!"
+            >
+              <Link href="/">
+                <HugeiconsIcon
+                  icon={ReceiptTextIcon}
+                  strokeWidth={2}
+                  className="size-5!"
+                />
+                <span className="text-base font-semibold">Factura Simple</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
