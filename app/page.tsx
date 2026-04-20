@@ -6,7 +6,7 @@ const REPO_URL = "https://github.com/luicho9/factura-simple";
 
 export default function Home() {
   return (
-    <>
+    <main>
       <header className="flex items-center justify-between px-6 py-5">
         <Link href="/" className="text-sm font-semibold tracking-tight">
           Factura Simple
@@ -61,6 +61,6 @@ export default function Home() {
           GitHub
         </Link>
       </footer>
-    </>
+    </main>
   );
 }
