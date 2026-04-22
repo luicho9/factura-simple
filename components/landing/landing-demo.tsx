@@ -23,8 +23,7 @@ const demoInvoice: InvoiceSchema = {
   invoice: {
     currency: "HNL",
     themeColor: "#00786f",
-    invoicePrefix: "FS-",
-    serialNumber: "0042",
+    invoiceNumber: "FS-0042",
     invoiceDate: new Date("2026-04-12"),
     dueDate: new Date("2026-04-26"),
     paymentTerms: "Neto 15",

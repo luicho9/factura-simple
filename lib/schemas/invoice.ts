@@ -30,11 +30,10 @@ export const invoiceSchema = z.object({
   invoice: z.object({
     currency: z.string().min(1, "La moneda es requerida"),
     themeColor: z.string().min(1, "El color del tema es requerido"),
-    invoicePrefix: z
+    invoiceNumber: z
       .string()
-      .min(1, "El prefijo de la factura no puede estar vacío")
-      .optional(),
-    serialNumber: z.string().min(1, "El número de serie es requerido"),
+      .trim()
+      .min(1, "El número de factura es requerido"),
     invoiceDate: z.date(),
     dueDate: z.date().optional().nullable(),
     paymentTerms: z.string(),
@@ -89,7 +88,7 @@ export const invoiceSchemaDefaultValues: InvoiceSchema = {
   invoice: {
     currency: "USD",
     themeColor: "#00786f",
-    serialNumber: "0001",
+    invoiceNumber: "0001",
     invoiceDate: new Date(),
     dueDate: null,
     paymentTerms: "",

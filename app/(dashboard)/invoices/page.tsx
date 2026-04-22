@@ -25,8 +25,7 @@ export default async function InvoicesPage({
 
   const data: InvoiceRow[] = rows.map((r) => ({
     id: r.id,
-    invoicePrefix: r.invoicePrefix,
-    serialNumber: r.serialNumber,
+    invoiceNumber: r.invoiceNumber,
     clientName:
       (r.payload as { client?: { name?: string } } | null)?.client?.name ?? "—",
     invoiceDate: r.invoiceDate,

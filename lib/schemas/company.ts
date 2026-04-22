@@ -12,7 +12,6 @@ export const companySchema = z.object({
   defaultPreset: z.string().min(1),
   defaultPresetFields: z.record(z.string(), z.unknown()),
   invoicePrefix: z.string(),
-  nextSerialNumber: z.number().int().positive(),
   defaultPaymentTerms: z.string(),
   defaultNotes: z.string(),
   defaultTerms: z.string(),

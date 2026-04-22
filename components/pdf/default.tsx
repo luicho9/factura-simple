@@ -126,7 +126,6 @@ export function DefaultInvoicePdf({ data, pdfSlots }: DefaultInvoicePdfProps) {
     items,
     invoice.billingDetails,
   );
-  const invoiceNumber = `${invoice.invoicePrefix ?? ""}${invoice.serialNumber}`;
 
   const hasFooter =
     additionalInfo.notes.trim().length > 0 ||
@@ -135,7 +134,7 @@ export function DefaultInvoicePdf({ data, pdfSlots }: DefaultInvoicePdfProps) {
 
   return (
     <Document
-      title={`Factura-${invoiceNumber}`}
+      title={`Factura-${invoice.invoiceNumber}`}
       author={company.name}
       subject={`Factura para ${client.name}`}
     >
@@ -155,7 +154,7 @@ export function DefaultInvoicePdf({ data, pdfSlots }: DefaultInvoicePdfProps) {
           </View>
 
           <View style={styles.metaList}>
-            <MetaRow label="No. de factura" value={invoiceNumber} />
+            <MetaRow label="No. de factura" value={invoice.invoiceNumber} />
             <MetaRow
               label="Fecha de emisión"
               value={formatDate(invoice.invoiceDate)}

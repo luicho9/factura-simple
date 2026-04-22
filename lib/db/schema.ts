@@ -1,11 +1,11 @@
 import {
   boolean,
-  integer,
   jsonb,
   numeric,
   pgTable,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
 
@@ -75,7 +75,6 @@ export const company = pgTable("company", {
   defaultPreset: text("default_preset").notNull().default("default"),
   defaultPresetFields: jsonb("default_preset_fields").notNull().default({}),
   invoicePrefix: text("invoice_prefix").notNull().default(""),
-  nextSerialNumber: integer("next_serial_number").notNull().default(1),
   defaultPaymentTerms: text("default_payment_terms").notNull().default(""),
   defaultNotes: text("default_notes").notNull().default(""),
   defaultTerms: text("default_terms").notNull().default(""),
@@ -100,25 +99,33 @@ export const client = pgTable("client", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-export const invoice = pgTable("invoice", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
-  clientId: uuid("client_id").references(() => client.id, {
-    onDelete: "set null",
-  }),
-  invoicePrefix: text("invoice_prefix").notNull().default(""),
-  serialNumber: integer("serial_number").notNull(),
-  invoiceDate: timestamp("invoice_date").notNull(),
-  dueDate: timestamp("due_date"),
-  totalAmount: numeric("total_amount", { precision: 14, scale: 2 })
-    .notNull()
-    .default("0"),
-  currency: text("currency").notNull(),
-  payload: jsonb("payload").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+export const invoice = pgTable(
+  "invoice",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    clientId: uuid("client_id").references(() => client.id, {
+      onDelete: "set null",
+    }),
+    invoiceNumber: text("invoice_number").notNull(),
+    invoiceDate: timestamp("invoice_date").notNull(),
+    dueDate: timestamp("due_date"),
+    totalAmount: numeric("total_amount", { precision: 14, scale: 2 })
+      .notNull()
+      .default("0"),
+    currency: text("currency").notNull(),
+    payload: jsonb("payload").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("invoice_user_id_invoice_number_unique").on(
+      table.userId,
+      table.invoiceNumber,
+    ),
+  ],
+);
 
 export type User = typeof user.$inferSelect;
 export type Company = typeof company.$inferSelect;

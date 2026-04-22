@@ -19,7 +19,7 @@ export const hnFieldsSchema = z.object({
 
 export type HnFields = z.infer<typeof hnFieldsSchema>;
 
-export const hnFieldsDefaults: HnFields = {
+const hnFieldsDefaults: HnFields = {
   rtnEmpresa: "",
   rtnCliente: "",
   cai: "",
@@ -32,8 +32,7 @@ export const hnInvoiceDefaults: InvoiceSchema = {
   invoice: {
     ...invoiceSchemaDefaultValues.invoice,
     currency: "HNL",
-    invoicePrefix: "",
-    serialNumber: "000-001-01-00000001",
+    invoiceNumber: "000-001-01-00000001",
     billingDetails: [{ label: "ISV", type: "percentage" as const, value: 15 }],
   },
   additionalInfo: {

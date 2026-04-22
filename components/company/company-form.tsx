@@ -203,22 +203,9 @@ export function CompanyForm({ defaults }: CompanyFormProps) {
                   <FieldError errors={[errors.defaultThemeColor]} />
                 </Field>
                 <Field>
-                  <FieldLabel>Prefijo de factura</FieldLabel>
+                  <FieldLabel>Prefijo para facturas simples</FieldLabel>
                   <Input {...register("invoicePrefix")} placeholder="FAC-" />
                   <FieldError errors={[errors.invoicePrefix]} />
-                </Field>
-                <Field>
-                  <FieldLabel>Próximo número de serie</FieldLabel>
-                  <Input
-                    type="number"
-                    min={1}
-                    step={1}
-                    {...register("nextSerialNumber", { valueAsNumber: true })}
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Cambiar este número afecta solo a facturas futuras.
-                  </p>
-                  <FieldError errors={[errors.nextSerialNumber]} />
                 </Field>
                 <Field>
                   <FieldLabel>Términos de pago</FieldLabel>

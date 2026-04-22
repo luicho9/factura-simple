@@ -24,7 +24,6 @@ export function InvoicePreview({ preview }: InvoicePreviewProps) {
     items,
     invoice.billingDetails,
   );
-  const invoiceNumber = `${invoice.invoicePrefix ?? ""}${invoice.serialNumber}`;
 
   const hasFooter =
     additionalInfo.notes.trim().length > 0 ||
@@ -84,7 +83,7 @@ export function InvoicePreview({ preview }: InvoicePreviewProps) {
 
             <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1">
               <dt className="font-semibold">No. de factura</dt>
-              <dd>{invoiceNumber}</dd>
+              <dd>{invoice.invoiceNumber}</dd>
 
               <dt className="font-semibold">Fecha de emisión</dt>
               <dd>{formatDate(invoice.invoiceDate)}</dd>

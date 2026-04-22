@@ -57,23 +57,13 @@ export function InvoiceDetails() {
       </Field>
 
       <Field>
-        <FieldLabel>Prefijo de la factura</FieldLabel>
+        <FieldLabel>Número de factura</FieldLabel>
         <Input
-          {...register("invoice.invoicePrefix")}
+          {...register("invoice.invoiceNumber")}
           autoComplete="off"
-          placeholder="FAC-"
+          placeholder="000-001-01-00000001"
         />
-        <FieldError errors={[errors.invoice?.invoicePrefix]} />
-      </Field>
-
-      <Field>
-        <FieldLabel>Número de serie</FieldLabel>
-        <Input
-          {...register("invoice.serialNumber")}
-          autoComplete="off"
-          placeholder="0001"
-        />
-        <FieldError errors={[errors.invoice?.serialNumber]} />
+        <FieldError errors={[errors.invoice?.invoiceNumber]} />
       </Field>
 
       <Field>

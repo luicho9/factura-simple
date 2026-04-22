@@ -10,8 +10,7 @@ export function getInvoices(userId: string, clientId?: string) {
   return db
     .select({
       id: invoice.id,
-      invoicePrefix: invoice.invoicePrefix,
-      serialNumber: invoice.serialNumber,
+      invoiceNumber: invoice.invoiceNumber,
       invoiceDate: invoice.invoiceDate,
       totalAmount: invoice.totalAmount,
       currency: invoice.currency,

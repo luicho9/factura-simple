@@ -30,17 +30,12 @@ import { deleteInvoice } from "@/app/(dashboard)/invoices/actions";
 
 export type InvoiceRow = {
   id: string;
-  invoicePrefix: string;
-  serialNumber: number;
+  invoiceNumber: string;
   clientName: string;
   invoiceDate: Date;
   totalAmount: string;
   currency: string;
 };
-
-function formatSerial(prefix: string, serial: number) {
-  return `${prefix}${String(serial).padStart(4, "0")}`;
-}
 
 function RowActions({ row }: { row: InvoiceRow }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -88,7 +83,7 @@ function RowActions({ row }: { row: InvoiceRow }) {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              ¿Eliminar factura {formatSerial(row.invoicePrefix, row.serialNumber)}?
+              ¿Eliminar factura {row.invoiceNumber}?
             </AlertDialogTitle>
             <AlertDialogDescription>
               Esta acción no se puede deshacer.
@@ -108,12 +103,10 @@ function RowActions({ row }: { row: InvoiceRow }) {
 
 export const columns: ColumnDef<InvoiceRow>[] = [
   {
-    accessorKey: "serialNumber",
-    header: "Serie",
+    accessorKey: "invoiceNumber",
+    header: "Número",
     cell: ({ row }) => (
-      <span className="font-medium">
-        {formatSerial(row.original.invoicePrefix, row.original.serialNumber)}
-      </span>
+      <span className="font-medium">{row.original.invoiceNumber}</span>
     ),
   },
   {
