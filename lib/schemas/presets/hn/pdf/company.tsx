@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
 export function HnPdfCompany({ data }: PresetPdfSlotProps) {
   const fields = data as HnFields | undefined;
   const rtn = fields?.rtnEmpresa;
-  if (!rtn) return null;
+  if (!rtn) {
+    return null;
+  }
   return (
     <Text style={styles.text}>
       <Text style={styles.label}>RTN: </Text>

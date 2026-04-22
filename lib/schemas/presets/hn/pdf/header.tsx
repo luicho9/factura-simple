@@ -10,9 +10,13 @@ const styles = StyleSheet.create({
 });
 
 const formatDate = (date: Date | null | undefined) => {
-  if (!date) return "";
+  if (!date) {
+    return "";
+  }
   const d = date instanceof Date ? date : new Date(date);
-  if (Number.isNaN(d.getTime())) return "";
+  if (Number.isNaN(d.getTime())) {
+    return "";
+  }
   return new Intl.DateTimeFormat("es-HN", {
     year: "numeric",
     month: "long",
@@ -22,7 +26,9 @@ const formatDate = (date: Date | null | undefined) => {
 
 export function HnPdfHeader({ data }: PresetPdfSlotProps) {
   const fields = data as HnFields | undefined;
-  if (!fields) return null;
+  if (!fields) {
+    return null;
+  }
 
   return (
     <>

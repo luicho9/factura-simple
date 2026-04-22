@@ -14,9 +14,13 @@ export function formatCurrency(value: number, currency: string) {
 }
 
 export function formatDate(date: Date | null | undefined) {
-  if (!date) return "";
+  if (!date) {
+    return "";
+  }
   const d = date instanceof Date ? date : new Date(date);
-  if (Number.isNaN(d.getTime())) return "";
+  if (Number.isNaN(d.getTime())) {
+    return "";
+  }
   return new Intl.DateTimeFormat("es-HN", {
     year: "numeric",
     month: "long",
