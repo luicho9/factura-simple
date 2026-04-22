@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { LandingDemo } from "@/components/landing/landing-demo";
 
@@ -8,7 +9,17 @@ export default function Home() {
   return (
     <main>
       <header className="flex items-center justify-between px-6 py-5">
-        <Link href="/" className="text-sm font-semibold tracking-tight">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-sm font-semibold tracking-tight"
+        >
+          <Image
+            src="/logo.png"
+            alt="Factura Simple"
+            width={600}
+            height={600}
+            className="size-5"
+          />
           Factura Simple
         </Link>
         <Link

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavLogin } from "@/components/sidebar/nav-login";
@@ -18,7 +19,6 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
   InvoiceIcon,
   UserGroupIcon,
-  ReceiptTextIcon,
   BuildingIcon,
 } from "@hugeicons/core-free-icons";
 
@@ -53,9 +53,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
               <Link href="/">
-                <HugeiconsIcon
-                  icon={ReceiptTextIcon}
-                  strokeWidth={2}
+                <Image
+                  src="/logo.png"
+                  alt="Factura Simple"
+                  width={600}
+                  height={600}
                   className="size-5!"
                 />
                 <span className="text-base font-semibold">Factura Simple</span>
