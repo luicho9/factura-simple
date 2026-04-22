@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LandingDemo } from "@/components/landing/landing-demo";
 
-const REPO_URL = "https://github.com/luicho9/factura-simple";
+const REPO_URL = "https://github.com/luicho9/facturasimple";
 
 export default function Home() {
   return (

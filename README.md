@@ -1,4 +1,4 @@
-# factura-simple
+# facturasimple
 
 Una app de facturación pequeña y autoalojable. Crea clientes, arma facturas y
 expórtalas en PDF.

@@ -3,7 +3,7 @@ import { z } from "zod";
 if (process.env.VITEST) {
   const testDefaults = {
     DATABASE_URL:
-      "postgres://postgres:postgres@localhost:5432/factura_simple_test",
+      "postgres://postgres:postgres@localhost:5432/facturasimple_test",
     BETTER_AUTH_SECRET: "test_better_auth_secret_at_least_32_chars_long",
     BETTER_AUTH_URL: "http://localhost:3000",
     GOOGLE_CLIENT_ID: "test_google_client_id",
