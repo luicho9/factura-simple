@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# factura-simple
 
-## Getting Started
+Una app de facturación pequeña y autoalojable. Crea clientes, arma facturas y
+expórtalas en PDF.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router) + React 19
+- PostgreSQL + Drizzle ORM
+- better-auth (Google OAuth)
+- Vercel Blob (almacenamiento de logo / firma)
+- @react-pdf/renderer para exportar PDF
+- Tailwind CSS 4 + Radix UI
+
+## Requisitos
+
+- Node.js 20+
+- pnpm
+- Una base de datos PostgreSQL (Supabase, Neon o local)
+- Un cliente OAuth 2.0 de Google
+- Un store de Vercel Blob (token de lectura/escritura)
+
+## Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env
+# completa los valores (ver "Variables de entorno" abajo)
+pnpm drizzle-kit migrate
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+La app corre en http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Variables de entorno
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Todas son requeridas y se validan al arranque en `lib/env.ts`. Si falta alguna
+o tiene un valor inválido, el proceso falla con un error de Zod.
 
-## Learn More
+| Variable                | Notas                                                                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`          | Cadena de conexión de PostgreSQL. Si usas pgbouncer en modo transaction, deja `?pgbouncer=true`. El cliente deshabilita los prepared statements. |
+| `BETTER_AUTH_SECRET`    | Al menos 32 caracteres. Genéralo con `openssl rand -base64 32`.                                                                                   |
+| `BETTER_AUTH_URL`       | Origen completo (ej. `http://localhost:3000` o `https://tu.dominio`).                                                                             |
+| `GOOGLE_CLIENT_ID`      | Desde Google Cloud Console → Credentials.                                                                                                         |
+| `GOOGLE_CLIENT_SECRET`  | En el mismo lugar. El redirect URI autorizado debe ser `${BETTER_AUTH_URL}/api/auth/callback/google`.                                             |
+| `BLOB_READ_WRITE_TOKEN` | Dashboard de Vercel → Storage → Blob → Connect.                                                                                                   |
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `pnpm dev`: servidor de desarrollo
+- `pnpm build` / `pnpm start`: build de producción y servir
+- `pnpm lint`: ESLint
+- `pnpm test`: Vitest
+- `pnpm knip`: detección de código muerto
+- `pnpm drizzle-kit generate` / `migrate`: migraciones de la base de datos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estructura del proyecto
 
-## Deploy on Vercel
+```
+app/                    rutas (App Router)
+  (dashboard)/          área autenticada (invoices, clients, company, create)
+  api/auth/[...all]/    handler de better-auth
+components/             UI (sidebar, constructor de factura, plantilla PDF, etc.)
+lib/
+  auth.ts               config de better-auth (servidor)
+  auth-client.ts        cliente de better-auth
+  db/                   schema y migraciones de Drizzle
+  env.ts                validación de env (importado por db y auth)
+  schemas/              schemas de Zod compartidos
+  billing.ts            totales de factura
+  pdf/                  helpers de renderizado de PDF
+proxy.ts                protección de rutas (reemplazo de middleware.ts en Next.js 16)
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Despliegue
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pensado para Vercel: conecta el repo y agrega las variables de entorno.
+También funciona en cualquier host que corra un servidor Next.js standalone.
+
+## Licencia
+
+MIT. Ver [LICENSE](./LICENSE).
