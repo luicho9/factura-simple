@@ -67,12 +67,12 @@ export function CreateView({
       selectedClientId && clients.find((c) => c.id === selectedClientId);
 
     return mergeDefaults(
-      preset.invoiceDefaults,
+      preset,
       company,
       selectedClient || null,
       presetKey,
     );
-  }, [preset.invoiceDefaults, company, clients, selectedClientId, presetKey]);
+  }, [preset, company, clients, selectedClientId, presetKey]);
 
   async function handleAfterDownload(data: InvoiceSchema) {
     if (!company) {
@@ -113,6 +113,7 @@ export function CreateView({
     <InvoiceForm
       key={`${presetKey}:${formVersion}`}
       defaults={defaults}
+      schema={preset.invoiceSchema}
       fieldsSchema={preset.fieldsSchema}
     >
       <HeaderActions>
@@ -165,7 +166,7 @@ export function CreateView({
                   selectedId={selectedClientId}
                   onSelect={setSelectedClientId}
                 />
-                <ClientDetails />
+                <ClientDetails taxIdLabel={preset.clientTaxIdLabel} />
               </AccordionContent>
             </AccordionItem>
 

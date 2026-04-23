@@ -34,6 +34,7 @@ export type ClientRow = {
   address: string;
   email: string;
   phone: string;
+  taxId: string;
   invoiceCount: number;
 };
 
@@ -87,6 +88,7 @@ function RowActions({ row }: { row: ClientRow }) {
           address: row.address,
           email: row.email,
           phone: row.phone,
+          taxId: row.taxId,
         }}
       />
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
@@ -112,6 +114,7 @@ function RowActions({ row }: { row: ClientRow }) {
 
 export const columns: ColumnDef<ClientRow>[] = [
   { accessorKey: "name", header: "Nombre" },
+  { accessorKey: "taxId", header: "ID fiscal" },
   { accessorKey: "email", header: "Email" },
   { accessorKey: "phone", header: "Teléfono" },
   {

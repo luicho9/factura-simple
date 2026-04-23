@@ -10,6 +10,7 @@ export function getClientsWithInvoiceCount(userId: string) {
       address: client.address,
       email: client.email,
       phone: client.phone,
+      taxId: client.taxId,
       invoiceCount: count(invoice.id),
     })
     .from(client)

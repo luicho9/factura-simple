@@ -15,6 +15,13 @@
       "when": 1776872925768,
       "tag": "0001_invoice_number_string",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1776912906276,
+      "tag": "0002_client_tax_id",
+      "breakpoints": true
     }
   ]
 }

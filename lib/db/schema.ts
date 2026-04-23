@@ -94,6 +94,7 @@ export const client = pgTable("client", {
   address: text("address").notNull().default(""),
   email: text("email").notNull().default(""),
   phone: text("phone").notNull().default(""),
+  taxId: text("tax_id").notNull().default(""),
   metadata: jsonb("metadata").notNull().default([]),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),

@@ -31,7 +31,13 @@ interface Props {
   client?: { id: string } & ClientSchema;
 }
 
-const empty: ClientSchema = { name: "", address: "", email: "", phone: "" };
+const empty: ClientSchema = {
+  name: "",
+  address: "",
+  email: "",
+  phone: "",
+  taxId: "",
+};
 
 export function ClientFormDialog({ open, onOpenChange, client }: Props) {
   const router = useRouter();
@@ -118,6 +124,15 @@ export function ClientFormDialog({ open, onOpenChange, client }: Props) {
                 placeholder="+504 0000-0000"
               />
               <FieldError errors={[errors.phone]} />
+            </Field>
+            <Field>
+              <FieldLabel>ID fiscal</FieldLabel>
+              <Input
+                {...register("taxId")}
+                autoComplete="off"
+                placeholder="00000000000000"
+              />
+              <FieldError errors={[errors.taxId]} />
             </Field>
           </FieldGroup>
           <DialogFooter>

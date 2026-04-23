@@ -1,5 +1,6 @@
 import type { InvoiceSchema } from "@/lib/schemas/invoice";
 import type { Company, Client } from "@/lib/db/schema";
+import type { Preset } from "@/lib/schemas/presets/types";
 
 type LabelValue = { label: string; value: string };
 
@@ -25,6 +26,7 @@ function clientToClientDefaults(client: Client): InvoiceSchema["client"] {
     address: client.address,
     email: client.email,
     phone: client.phone,
+    taxId: client.taxId,
     metadata: asLabelValueArray(client.metadata),
   };
 }
@@ -36,21 +38,36 @@ function asPresetFields(value: unknown): Record<string, unknown> {
 }
 
 export function mergeDefaults(
-  presetDefaults: InvoiceSchema,
+  preset: Preset,
   company: Company | null,
   client: Client | null,
   presetKey: string,
 ): InvoiceSchema {
-  if (!company) {
-    return client
-      ? { ...presetDefaults, client: clientToClientDefaults(client) }
-      : presetDefaults;
-  }
+  const presetDefaults = preset.invoiceDefaults;
 
   const savedPresetFields =
-    company.defaultPreset === presetKey
+    company && company.defaultPreset === presetKey
       ? asPresetFields(company.defaultPresetFields)
       : {};
+
+  const companyPresetFields = preset.getCompanyPresetFields
+    ? preset.getCompanyPresetFields(savedPresetFields)
+    : savedPresetFields;
+
+  const presetFields = {
+    ...asPresetFields(presetDefaults.presetFields),
+    ...companyPresetFields,
+  };
+
+  if (!company) {
+    return client
+      ? {
+          ...presetDefaults,
+          client: clientToClientDefaults(client),
+          presetFields,
+        }
+      : { ...presetDefaults, presetFields };
+  }
 
   return {
     ...presetDefaults,
@@ -77,9 +94,6 @@ export function mergeDefaults(
           ? asLabelValueArray(company.defaultPaymentInformation)
           : presetDefaults.additionalInfo.paymentInformation,
     },
-    presetFields: {
-      ...(presetDefaults.presetFields ?? {}),
-      ...savedPresetFields,
-    },
+    presetFields,
   };
 }

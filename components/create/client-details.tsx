@@ -5,7 +5,11 @@ import type { InvoiceSchema } from "@/lib/schemas/invoice";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 
-export function ClientDetails() {
+export function ClientDetails({
+  taxIdLabel = "ID fiscal",
+}: {
+  taxIdLabel?: string;
+}) {
   const {
     register,
     formState: { errors },
@@ -50,6 +54,15 @@ export function ClientDetails() {
           placeholder="+504 0000-0000"
         />
         <FieldError errors={[errors.client?.phone]} />
+      </Field>
+      <Field>
+        <FieldLabel>{taxIdLabel}</FieldLabel>
+        <Input
+          {...register("client.taxId")}
+          autoComplete="off"
+          placeholder="00000000000000"
+        />
+        <FieldError errors={[errors.client?.taxId]} />
       </Field>
     </FieldGroup>
   );

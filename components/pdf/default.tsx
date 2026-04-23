@@ -171,7 +171,9 @@ export function DefaultInvoicePdf({ data, pdfSlots }: DefaultInvoicePdfProps) {
                 value={invoice.paymentTerms}
               />
             )}
-            {pdfSlots?.header && <pdfSlots.header data={presetFields} />}
+            {pdfSlots?.header && (
+              <pdfSlots.header data={presetFields} invoice={data} />
+            )}
           </View>
 
           <View style={styles.parties}>
@@ -190,7 +192,9 @@ export function DefaultInvoicePdf({ data, pdfSlots }: DefaultInvoicePdfProps) {
                   {m.value}
                 </Text>
               ))}
-              {pdfSlots?.company && <pdfSlots.company data={presetFields} />}
+              {pdfSlots?.company && (
+                <pdfSlots.company data={presetFields} invoice={data} />
+              )}
             </View>
 
             <View style={styles.party}>
@@ -209,7 +213,9 @@ export function DefaultInvoicePdf({ data, pdfSlots }: DefaultInvoicePdfProps) {
                   {m.value}
                 </Text>
               ))}
-              {pdfSlots?.client && <pdfSlots.client data={presetFields} />}
+              {pdfSlots?.client && (
+                <pdfSlots.client data={presetFields} invoice={data} />
+              )}
             </View>
           </View>
 

@@ -1,0 +1,1 @@
+ALTER TABLE "client" ADD COLUMN "tax_id" text DEFAULT '' NOT NULL;

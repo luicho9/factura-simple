@@ -1,6 +1,11 @@
 "use client";
 
-import { Controller, useFormContext, type FieldValues, type Path } from "react-hook-form";
+import {
+  Controller,
+  useFormContext,
+  type FieldValues,
+  type Path,
+} from "react-hook-form";
 import { DatePicker } from "@/components/ui/date-picker";
 import {
   Field,
@@ -9,12 +14,11 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import type { PresetFormFieldsProps } from "../types";
 
-interface HnFormFieldsProps {
-  pathPrefix?: string;
-}
-
-export function HnFormFields({ pathPrefix = "presetFields" }: HnFormFieldsProps = {}) {
+export function HnFormFields({
+  pathPrefix = "presetFields",
+}: PresetFormFieldsProps = {}) {
   const {
     register,
     control,
@@ -23,7 +27,9 @@ export function HnFormFields({ pathPrefix = "presetFields" }: HnFormFieldsProps 
 
   const path = (key: string) => `${pathPrefix}.${key}` as Path<FieldValues>;
   const prefixErrors =
-    (errors[pathPrefix as keyof typeof errors] as Record<string, { message?: string }> | undefined) ?? {};
+    (errors[pathPrefix as keyof typeof errors] as
+      | Record<string, { message?: string }>
+      | undefined) ?? {};
 
   return (
     <FieldGroup>
@@ -36,17 +42,6 @@ export function HnFormFields({ pathPrefix = "presetFields" }: HnFormFieldsProps 
           maxLength={14}
         />
         <FieldError errors={[prefixErrors.rtnEmpresa]} />
-      </Field>
-
-      <Field>
-        <FieldLabel>RTN del cliente</FieldLabel>
-        <Input
-          {...register(path("rtnCliente"))}
-          autoComplete="off"
-          placeholder="00000000000000"
-          maxLength={14}
-        />
-        <FieldError errors={[prefixErrors.rtnCliente]} />
       </Field>
 
       <Field>

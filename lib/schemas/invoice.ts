@@ -20,6 +20,7 @@ export const invoiceSchema = z.object({
     address: z.string().min(1, "La dirección del cliente es requerida"),
     email: z.email("Email inválido").or(z.literal("")).optional(),
     phone: z.string().optional(),
+    taxId: z.string().trim(),
     metadata: z.array(
       z.object({
         label: z.string().min(1, "La etiqueta no puede estar vacía"),
@@ -83,6 +84,7 @@ export const invoiceSchemaDefaultValues: InvoiceSchema = {
     address: "Col. Los Alamos, Bloque 10, Casa 10",
     email: "",
     phone: "",
+    taxId: "",
     metadata: [],
   },
   invoice: {

@@ -31,12 +31,18 @@ export function DownloadActions({
   pdfSlots,
   onAfterDownload,
 }: DownloadActionsProps) {
-  const { getValues } = useFormContext<InvoiceSchema>();
+  const { getValues, trigger } = useFormContext<InvoiceSchema>();
   const [busy, setBusy] = useState(false);
 
   const handle = async (action: Action) => {
     setBusy(true);
     try {
+      const isValid = await trigger();
+      if (!isValid) {
+        toast.error("Completa los datos requeridos antes de generar el PDF.");
+        return;
+      }
+
       const data = getValues();
       const init = { data, pdfSlots };
       if (action === "view-pdf") await viewPdf(init);

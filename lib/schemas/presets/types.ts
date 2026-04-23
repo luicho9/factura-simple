@@ -8,7 +8,7 @@ export type PresetPreviewSlots = {
   footer?: React.ComponentType;
 };
 
-export type PresetPdfSlotProps = { data: unknown };
+export type PresetPdfSlotProps = { data: unknown; invoice: InvoiceSchema };
 
 export type PresetPdfSlots = {
   header?: React.ComponentType<PresetPdfSlotProps>;
@@ -17,11 +17,20 @@ export type PresetPdfSlots = {
   footer?: React.ComponentType<PresetPdfSlotProps>;
 };
 
+export type PresetFormFieldsProps = {
+  pathPrefix?: string;
+};
+
 export type Preset = {
   label: string;
   invoiceDefaults: InvoiceSchema;
+  invoiceSchema?: z.ZodTypeAny;
   fieldsSchema?: z.ZodTypeAny;
-  FormFields?: React.ComponentType<{ pathPrefix?: string }>;
+  FormFields?: React.ComponentType<PresetFormFieldsProps>;
+  clientTaxIdLabel?: string;
+  getCompanyPresetFields?: (
+    fields: Record<string, unknown>,
+  ) => Record<string, unknown>;
   preview?: PresetPreviewSlots;
   pdf?: PresetPdfSlots;
 };

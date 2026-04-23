@@ -5,6 +5,7 @@ export const clientSchema = z.object({
   address: z.string(),
   email: z.email("Email inválido").or(z.literal("")),
   phone: z.string(),
+  taxId: z.string().trim(),
 });
 
 export type ClientSchema = z.infer<typeof clientSchema>;

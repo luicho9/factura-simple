@@ -9,6 +9,7 @@ import { auth } from "@/lib/auth";
 import db from "@/lib/db";
 import { company } from "@/lib/db/schema";
 import { companySchema, type CompanySchema } from "@/lib/schemas/company";
+import { getHnCompanyPresetFields } from "@/lib/schemas/presets/hn/fields";
 
 const MAX_BYTES = 2 * 1024 * 1024; // 2 MB
 const ALLOWED_TYPES = new Set(["image/png", "image/jpeg", "image/webp"]);
@@ -24,9 +25,14 @@ async function requireUserId() {
 export async function updateCompany(data: CompanySchema) {
   const userId = await requireUserId();
   const parsed = companySchema.parse(data);
+  const defaultPresetFields =
+    parsed.defaultPreset === "HN"
+      ? getHnCompanyPresetFields(parsed.defaultPresetFields)
+      : parsed.defaultPresetFields;
+
   await db
     .update(company)
-    .set({ ...parsed, updatedAt: new Date() })
+    .set({ ...parsed, defaultPresetFields, updatedAt: new Date() })
     .where(eq(company.userId, userId));
   revalidatePath("/company");
 }

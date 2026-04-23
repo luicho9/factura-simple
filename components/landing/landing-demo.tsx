@@ -18,6 +18,7 @@ const demoInvoice: InvoiceSchema = {
     address: "San Pedro Sula, Honduras",
     email: "jose@flores.com",
     phone: "",
+    taxId: "",
     metadata: [],
   },
   invoice: {

@@ -1,11 +1,11 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-import type { HnFields } from "../schema";
+import type { InvoiceSchema } from "@/lib/schemas/invoice";
 
 export function HnClientPreview() {
-  const { watch } = useFormContext<{ presetFields: HnFields }>();
-  const rtn = watch("presetFields.rtnCliente");
+  const { watch } = useFormContext<InvoiceSchema>();
+  const rtn = watch("client.taxId");
   if (!rtn) {
     return null;
   }

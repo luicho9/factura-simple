@@ -1,17 +1,18 @@
 import { z } from "zod";
-import { type InvoiceSchema, invoiceSchemaDefaultValues } from "../../invoice";
+import {
+  invoiceSchema,
+  type InvoiceSchema,
+  invoiceSchemaDefaultValues,
+} from "../../invoice";
+
+const rtnSchema = z
+  .string()
+  .regex(/^\d{14}$/, "RTN debe ser exactamente 14 dígitos")
+  .optional()
+  .or(z.literal(""));
 
 export const hnFieldsSchema = z.object({
-  rtnEmpresa: z
-    .string()
-    .regex(/^\d{14}$/, "RTN debe ser exactamente 14 dígitos")
-    .optional()
-    .or(z.literal("")),
-  rtnCliente: z
-    .string()
-    .regex(/^\d{14}$/, "RTN debe ser exactamente 14 dígitos")
-    .optional()
-    .or(z.literal("")),
+  rtnEmpresa: rtnSchema,
   cai: z.string().optional(),
   rangoAutorizado: z.string().optional(),
   fechaLimiteEmision: z.date().optional().nullable(),
@@ -21,11 +22,17 @@ export type HnFields = z.infer<typeof hnFieldsSchema>;
 
 const hnFieldsDefaults: HnFields = {
   rtnEmpresa: "",
-  rtnCliente: "",
   cai: "",
   rangoAutorizado: "",
   fechaLimiteEmision: null,
 };
+
+export const hnInvoiceSchema = invoiceSchema.extend({
+  client: invoiceSchema.shape.client.extend({
+    taxId: rtnSchema,
+  }),
+  presetFields: hnFieldsSchema,
+});
 
 export const hnInvoiceDefaults: InvoiceSchema = {
   ...invoiceSchemaDefaultValues,

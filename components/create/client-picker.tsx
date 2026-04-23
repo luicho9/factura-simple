@@ -36,6 +36,7 @@ export function ClientPicker({
     setValue("client.address", values.address, { shouldDirty: true });
     setValue("client.email", values.email, { shouldDirty: true });
     setValue("client.phone", values.phone, { shouldDirty: true });
+    setValue("client.taxId", values.taxId, { shouldDirty: true });
     setValue("client.metadata", values.metadata, { shouldDirty: true });
   }
 
@@ -47,6 +48,7 @@ export function ClientPicker({
         address: "",
         email: "",
         phone: "",
+        taxId: "",
         metadata: [],
       });
       return;
@@ -63,6 +65,7 @@ export function ClientPicker({
       address: match.address,
       email: match.email,
       phone: match.phone,
+      taxId: match.taxId,
       metadata: Array.isArray(match.metadata)
         ? (match.metadata as InvoiceSchema["client"]["metadata"])
         : [],
