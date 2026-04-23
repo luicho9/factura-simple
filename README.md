@@ -1,7 +1,9 @@
-# facturasimple
+# Factura Simple
 
 Una app de facturación pequeña y autoalojable. Crea clientes, arma facturas y
 expórtalas en PDF.
+
+![Factura Simple](app/opengraph-image.png)
 
 ## Stack
 
@@ -37,14 +39,14 @@ La app corre en http://localhost:3000.
 Todas son requeridas y se validan al arranque en `lib/env.ts`. Si falta alguna
 o tiene un valor inválido, el proceso falla con un error de Zod.
 
-| Variable                | Notas                                                                                                                                             |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Variable                | Notas                                                                                                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `DATABASE_URL`          | Cadena de conexión de PostgreSQL. Si usas pgbouncer en modo transaction, deja `?pgbouncer=true`. El cliente deshabilita los prepared statements. |
-| `BETTER_AUTH_SECRET`    | Al menos 32 caracteres. Genéralo con `openssl rand -base64 32`.                                                                                   |
-| `BETTER_AUTH_URL`       | Origen completo (ej. `http://localhost:3000` o `https://tu.dominio`).                                                                             |
-| `GOOGLE_CLIENT_ID`      | Desde Google Cloud Console → Credentials.                                                                                                         |
-| `GOOGLE_CLIENT_SECRET`  | En el mismo lugar. El redirect URI autorizado debe ser `${BETTER_AUTH_URL}/api/auth/callback/google`.                                             |
-| `BLOB_READ_WRITE_TOKEN` | Dashboard de Vercel → Storage → Blob → Connect.                                                                                                   |
+| `BETTER_AUTH_SECRET`    | Al menos 32 caracteres. Genéralo con `openssl rand -base64 32`.                                                                                  |
+| `BETTER_AUTH_URL`       | Origen completo (ej. `http://localhost:3000` o `https://tu.dominio`).                                                                            |
+| `GOOGLE_CLIENT_ID`      | Desde Google Cloud Console → Credentials.                                                                                                        |
+| `GOOGLE_CLIENT_SECRET`  | En el mismo lugar. El redirect URI autorizado debe ser `${BETTER_AUTH_URL}/api/auth/callback/google`.                                            |
+| `BLOB_READ_WRITE_TOKEN` | Dashboard de Vercel → Storage → Blob → Connect.                                                                                                  |
 
 ## Scripts
 
