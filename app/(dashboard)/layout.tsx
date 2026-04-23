@@ -29,7 +29,7 @@ export default function DashboardLayout({
         <SidebarInset className="h-full min-h-0 overflow-hidden">
           <HeaderActionsProvider>
             <div className="@container/main flex flex-1 flex-col overflow-y-auto">
-              <main className="flex flex-col gap-4 p-4 md:gap-6 md:p-6">
+              <main className="flex flex-col gap-4 px-4 py-1 md:gap-6 md:px-6 md:py-3">
                 {children}
               </main>
             </div>
