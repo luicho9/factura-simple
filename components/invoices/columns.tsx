@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { ColumnDef } from "@tanstack/react-table";
 import { toast } from "sonner";
@@ -10,7 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -64,13 +62,6 @@ function RowActions({ row }: { row: InvoiceRow }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem asChild>
-            <Link href={`/invoices/${row.id}`}>Ver</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href={`/create?duplicate=${row.id}`}>Duplicar</Link>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
           <DropdownMenuItem
             variant="destructive"
             onClick={() => setConfirmOpen(true)}
