@@ -2,6 +2,15 @@
 // PEN (Sol), VES (Bolívar), PAB (Balboa), HTG (Gourde),
 // AWG (Florín), ANG (Guilder), SVC (Colón salvadoreño)
 export function formatCurrency(value: number, currency: string) {
+  if (currency === "HNL") {
+    const formattedValue = new Intl.NumberFormat("es-HN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value);
+
+    return `L ${formattedValue}`;
+  }
+
   try {
     return new Intl.NumberFormat("es-HN", {
       style: "currency",

@@ -4,7 +4,7 @@ import { formatCurrency, formatDate } from "./format";
 describe("formatCurrency", () => {
   test("formats a number as HNL currency string", () => {
     const result = formatCurrency(1500, "HNL");
-    expect(result).toContain("L");
+    expect(result).toBe("L 1,500.00");
   });
 
   test("formats USD with dollar symbol", () => {
